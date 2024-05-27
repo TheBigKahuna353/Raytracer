@@ -1369,7 +1369,11 @@ CMakeFiles/RayTracer.out.dir/RayTracer.cpp.o: ../RayTracer.cpp \
   /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
   /usr/include/c++/11/bits/fstream.tcc \
   ../world.h \
-  ../mandlebrot.h
+  ../mandlebrot.h \
+  /usr/include/c++/11/chrono \
+  /usr/include/c++/11/ratio \
+  /usr/include/c++/11/ctime \
+  /usr/include/c++/11/bits/parse_numbers.h
 
 CMakeFiles/RayTracer.out.dir/SceneObject.cpp.o: ../SceneObject.cpp \
   /usr/include/stdc-predef.h \
@@ -3564,6 +3568,8 @@ CMakeFiles/RayTracer.out.dir/world.cpp.o: ../world.cpp \
 
 ../SceneObject.cpp:
 
+/usr/include/c++/11/ctime:
+
 ../mandlebrot.h:
 
 /usr/include/c++/11/bits/fstream.tcc:
@@ -3729,6 +3735,8 @@ CMakeFiles/RayTracer.out.dir/world.cpp.o: ../world.cpp \
 /usr/include/glm/ext/matrix_double3x2_precision.hpp:
 
 /usr/include/glm/geometric.hpp:
+
+/usr/include/c++/11/ratio:
 
 /usr/include/glm/ext/matrix_double2x2_precision.hpp:
 
@@ -3957,6 +3965,8 @@ CMakeFiles/RayTracer.out.dir/world.cpp.o: ../world.cpp \
 /usr/include/c++/11/pstl/pstl_config.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/c++/11/chrono:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
@@ -4331,6 +4341,8 @@ CMakeFiles/RayTracer.out.dir/world.cpp.o: ../world.cpp \
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
 /usr/include/glm/detail/func_packing.inl:
+
+/usr/include/c++/11/bits/parse_numbers.h:
 
 /usr/include/glm/detail/type_half.hpp:
 

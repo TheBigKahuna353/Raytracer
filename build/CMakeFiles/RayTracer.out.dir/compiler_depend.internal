@@ -1374,6 +1374,10 @@ CMakeFiles/RayTracer.out.dir/RayTracer.cpp.o
  /usr/include/c++/11/bits/fstream.tcc
  /csse/users/jwi179/Documents/COSC363/ass2/world.h
  /csse/users/jwi179/Documents/COSC363/ass2/mandlebrot.h
+ /usr/include/c++/11/chrono
+ /usr/include/c++/11/ratio
+ /usr/include/c++/11/ctime
+ /usr/include/c++/11/bits/parse_numbers.h
 
 CMakeFiles/RayTracer.out.dir/SceneObject.cpp.o
  /csse/users/jwi179/Documents/COSC363/ass2/SceneObject.cpp

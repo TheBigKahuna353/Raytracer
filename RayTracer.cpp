@@ -30,6 +30,7 @@ const float XMAX = 10.0;
 const float YMIN = -10.0;
 const float YMAX = 10.0;
 const bool USEAAA = true;
+const bool SOFTSHADOWS = true;
 
 glm::vec3 eye(0., 0., 40.);
 long numTraces = 0;
@@ -105,32 +106,44 @@ glm::vec3 trace(Ray ray, int step)
 		color = obj->lighting(new_light, -ray.dir, ray.hit);
 	}
 	
-	// 1 center shadow rar, 4 surrounding shadows rays
-	glm::vec3 shadowCol = glm::vec3(0);
-	Ray shadowRay;
-	SceneObject* shadowObj;
-	const int xNum = 4;
-	const int zNum = 4;
-	const double size = 6/xNum;
-	for (int i = -xNum/2; i < xNum/2; i++) {
-		for (int j = -zNum/2; j < zNum/2; j++) {
-			double x = lightPos.x + i * size;
-			double z = lightPos.z + j * size;
-			glm::vec3 new_lightPos = glm::vec3(x + (rand() % (int)(size*100))/100.0f, lightPos.y, z + (rand() % (int)(size*100))/100.0f);
-			shadowRay = Ray(ray.hit, new_lightPos - ray.hit);
-			shadowRay.closestPt(sceneObjects);
-			shadowObj = sceneObjects[shadowRay.index];
-			if (shadowRay.index != 6 && shadowRay.dist < glm::length(lightPos - ray.hit)) {
-				float shadowCoeff = (shadowObj->isRefractive() || shadowObj->isTransparent()) ? 0.7 : 0.5;
-				shadowCol = shadowCol + color * shadowCoeff;
-			} else {
-				shadowCol = shadowCol + color;
+	if (SOFTSHADOWS) {
+		// 1 center shadow rar, 4 surrounding shadows rays
+		glm::vec3 shadowCol = glm::vec3(0);
+		Ray shadowRay;
+		SceneObject* shadowObj;
+		const int xNum = 4;
+		const int zNum = 4;
+		const double size = 6/xNum;
+		for (int i = -xNum/2; i < xNum/2; i++) {
+			for (int j = -zNum/2; j < zNum/2; j++) {
+				double x = lightPos.x + i * size;
+				double z = lightPos.z + j * size;
+				glm::vec3 new_lightPos = glm::vec3(x + (rand() % (int)(size*100))/100.0f, lightPos.y, z + (rand() % (int)(size*100))/100.0f);
+				shadowRay = Ray(ray.hit, new_lightPos - ray.hit);
+				shadowRay.closestPt(sceneObjects);
+				shadowObj = sceneObjects[shadowRay.index];
+				if (shadowRay.index != 6 && shadowRay.dist < glm::length(lightPos - ray.hit)) {
+					float shadowCoeff = (shadowObj->isRefractive() || shadowObj->isTransparent()) ? 0.7 : 0.5;
+					shadowCol = shadowCol + color * shadowCoeff;
+				} else {
+					shadowCol = shadowCol + color;
 
+				}
 			}
 		}
+		shadowCol = shadowCol / (float)(xNum * zNum);
+		color = shadowCol;
+	} else {
+		Ray shadowRay;
+		SceneObject* shadowObj;
+		shadowRay = Ray(ray.hit, lightPos - ray.hit);
+		shadowRay.closestPt(sceneObjects);
+		shadowObj = sceneObjects[shadowRay.index];
+		if (shadowRay.index != 6 && shadowRay.dist < glm::length(lightPos - ray.hit)) {
+			float shadowCoeff = (shadowObj->isRefractive() || shadowObj->isTransparent()) ? 0.7 : 0.5;
+			color = color * shadowCoeff;
+		}
 	}
-	shadowCol = shadowCol / (float)(xNum * zNum);
-	color = shadowCol;
 
 	if (obj->isReflective() && step < MAX_STEPS)
 	{	
